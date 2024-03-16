@@ -42,7 +42,7 @@ Tangula 寓意数据的源头，为研发团队提供即取即用的数据服务
 8. 支持在线API文档浏览。  
 
 ### 场景
-![场景](https://github.com/Zhang-jie-jun/tangula/main/static/backdrop.png)
+![场景](https://github.com/Zhang-jie-jun/tangula/blob/main/static/backdrop.png)  
 ####场景说明：
 1. 资源发布中心：所有用户可见，用户可发布数据镜像或虚拟化(云)平台等资源到资源发布中心。
 2. 平台资源：当前用户可见，管理当前用户创建的虚拟化(云)平台资源。
@@ -94,7 +94,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 + 公共平台页面：普通用户仅支持浏览平台信息，系统管理员支持删除平台。
 + 私有平台页面：所有用户支持创建、编辑、删除、发布及浏览平台功能，用户之间资源互相隔离，仅当前用户可见。
 + 私有平台发布后展示到公共平台页面，所有用户可见，发布后的资源不在属于用户自身，由系统管理员管理。
-![平台](https://github.com/Zhang-jie-jun/tangula/main/static/platform.png)
+![平台](https://github.com/Zhang-jie-jun/tangula/blob/main/static/platform.png)  
 
 #### 主机管理
 + 主机管理核心功能是对Linux或Windows主机的统一管理。  
@@ -105,7 +105,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 ```
 前置条件：鉴于添加平台的过程中需要对远程主机进行认证操作，请确保需要添加的目标主机系统已经安装并启动ssh服务与nfs客户端服务
 ```
-![主机](https://github.com/Zhang-jie-jun/tangula/main/static/host.png)
+![主机](https://github.com/Zhang-jie-jun/tangula/blob/main/static/host.png)  
 
 #### 存储池管理
 + 存储池管理的核心功能是管理ceph存储池。  
@@ -113,7 +113,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 ```
 存储池是副本与镜像的载体
 ```
-![存储池](https://github.com/Zhang-jie-jun/tangula/main/static/storage.png)
+![存储池](https://github.com/Zhang-jie-jun/tangula/blob/main/static/storage.png)  
 
 ### 数据管理
 #### 副本管理
@@ -125,7 +125,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 ```
 默认挂载是指挂载到目标主机一个默认的目录上，脚本挂载是指用户可以自定义脚本，完成共享路径导出后执行用户上传的脚本。
 ```
-![副本](https://github.com/Zhang-jie-jun/tangula/main/static/replica.png)
+![副本](https://github.com/Zhang-jie-jun/tangula/blob/main/static/replica.png)  
 
 #### 镜像管理 
 镜像是一个只读的特殊副本，不支持快照及挂载功能，不支持直接创建镜像，可以根据场景选择从副本或快照生成镜像，支持从镜像生成副本。    
@@ -134,7 +134,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 ```
 私有镜像发布后展示到公共镜像页面，所有用户可见，发布后的资源不在属于用户自身，由系统管理员管理。
 ```
-![镜像](https://github.com/Zhang-jie-jun/tangula/main/static/image.png)
+![镜像](https://github.com/Zhang-jie-jun/tangula/blob/main/static/image.png)  
     
 ### 用户管理
 用户管理需要系统管理员权限，普通用户无法浏览该页面。  
@@ -148,7 +148,7 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 系统管理员可以禁用或启用普通用户，不支持禁用系统管理员。
 系统管理员可以编辑用户角色，将普通用户升级为系统管理员，或将系统管理员降级为普通用户，系统管理员支持更改自身或其他系统管理员权限。
 ```
-![用户](https://github.com/Zhang-jie-jun/tangula/main/static/user.png)
+![用户](https://github.com/Zhang-jie-jun/tangula/blob/main/static/user.png)  
 
 #### 角色管理
 根据以下操作进入角色管理页面：  
@@ -165,4 +165,4 @@ Tangula平台设置普通用户与系统管理员两个权限组。
 ```
 操作记录界面记录了Tangula平台上所有用户的操作记录
 ```
-![记录](https://github.com/Zhang-jie-jun/tangula/main/static/record.png)
+![记录](https://github.com/Zhang-jie-jun/tangula/blob/main/static/record.png)  
