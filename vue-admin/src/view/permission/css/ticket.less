@@ -1,0 +1,92 @@
+.drag-item {
+  width: 100%;
+  height: 30px;
+  .ivu-card-body {
+    padding: 4px 16px;
+    .ivu-form-item-content {
+      line-height: initial;
+    }
+  }
+}
+.ivu-form .ivu-form-item-label {
+  font-weight: bold;
+  color: #515a6e;
+  font-size: 16px;
+}
+
+.create-work-sheet {
+  .step-create {
+    .create-inline-form-item {
+      margin-right: 4em;
+    }
+    .submit-step-create {
+      margin-top: 36px;
+    }
+  }
+  .step-add-demand {
+    .operate-add-demands {
+      margin-bottom: 20px;
+      &.bottom {
+        margin-top: 20px;
+        text-align: center;
+      }
+    }
+
+    .reorder-task-item {
+      padding: 6px 10px;
+      border-bottom: 1px solid #eee;
+      cursor: row-resize;
+      &.modified {
+        background: rgba(45, 140, 240, 0.2);
+      }
+
+      .item-title {
+        width: 240px;
+        margin: 0 20px 0 10px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: -6px;
+      }
+      .tag-block {
+        min-width: 100px;
+        display: inline-block;
+      }
+      .demand-link {
+        a {
+          color: #2d8cf0;
+        }
+      }
+    }
+
+  }
+}
+
+// 调整任务顺序
+
+.configurable-demand-title {
+  height: 2em;
+  line-height: 1.8em;
+  font-weight: bold;
+}
+
+.drag-info {
+  color: #2d8cf0;
+  margin-top: 4px;
+}
+
+.one-demand-reorder-item {
+  width: 80%;
+  padding: 10px 20px;
+  margin-bottom: 4px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  cursor: row-resize;
+}
+
+// 修复win上面table中的popup被遮挡的问题
+.ivu-table-wrapper {
+  overflow: visible;
+}
+

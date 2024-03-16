@@ -1,0 +1,4543 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Tangula API接口文档\n唐古拉山脉，长江正源，滋润万物。\nTangula 寓意数据的源头，为研发团队提供即取即用的数据服务，帮助团队高效产出。",
+        "title": "Tangula",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "zhang.jiejun@outlook.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:8000",
+    "paths": {
+        "/auth/role": {
+            "get": {
+                "description": "【管理员权限】获取角色列表。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "获取角色列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/auth.Role"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/token": {
+            "get": {
+                "description": "【登录权限】刷新token有效期。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "刷新token",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/api.Token"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "description": "【登录权限】获取指定用户信息(用户ID，用户名称，用户账号, 用户邮箱，联系方式, 用户角色，用户状态等)。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "获取用户信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/auth.User"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/user/{id}": {
+            "get": {
+                "description": "【管理员权限】获取指定用户信息(用户ID，用户名称，用户账号, 用户邮箱，联系方式, 用户角色，用户状态等)。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "获取指定用户信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/auth.User"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/user/{id}/disable": {
+            "put": {
+                "description": "【系统管理员权限】禁用用户权限，禁用后用户不可登录平台、操作平台资源。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "禁用用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/user/{id}/enable": {
+            "put": {
+                "description": "【系统管理员权限】启用用户权限。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "启用用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/user/{id}/set_role": {
+            "put": {
+                "description": "【管理员权限】编辑用户角色。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "编辑用户角色",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标用户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "角色名称[普通用户、系统管理员]",
+                        "name": "roleName",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/users": {
+            "get": {
+                "description": "【超级管理员权限】获取平台上所有用户信息，支持分页、按角色类型、用户名称、用户账户、用户邮箱过滤。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "获取用户列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "角色过滤参数[普通用户、系统管理员]",
+                        "name": "roleName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "用户名称、用户账号、用户邮箱过滤参数[模糊匹配]",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/auth.User"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/log/record": {
+            "get": {
+                "description": "【登录权限】获取所有操作日志记录，普通用户只能获取自身的操作日志记录，系统管理员平台上所有用户的操作日志记录。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "日志管理"
+                ],
+                "summary": "获取所有日志记录",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "用户名称",
+                        "name": "user",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/log.LogRecord"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "用户登录获取token。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "用户登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名称",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/api.Token"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "description": "【登录权限】用户注销登录。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户鉴权"
+                ],
+                "summary": "用户注销",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/host": {
+            "get": {
+                "description": "【登录权限】获取所有主机资源，用户只能获取属于自身的主机资源(含公共资源)。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "获取所有主机资源",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "权限过滤类型[0.不过滤, 111.私有，222.公共]",
+                        "name": "auth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "主机过滤类型[0.不过滤, 51.Linux主机，52.Windows主机]",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称、IP过滤参数[模糊匹配]",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/host.Host"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "【登录权限】添加一个主机。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "添加主机",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "主机名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主机类型[51.Linux, 52.Windows]",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机访问ip",
+                        "name": "ip",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主机访问port",
+                        "name": "port",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/host.Host"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/host/support": {
+            "get": {
+                "description": "【登录权限】获取已支持虚主机资源类型[51.Linux, 52.Windows]。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "获取已支持主机资源类型",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/host/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定主机资源信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "获取指定主机资源信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标主机ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/host.Host"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "【登录权限】编辑指定主机，用户只允许编辑属于自身的主机资源，管理员可以编辑公共主机资源。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "编辑指定主机",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标主机ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机访问ip",
+                        "name": "ip",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主机访问port",
+                        "name": "port",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "主机登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/host.Host"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定主机，用户只允许删除属于自身的主机资源，管理员可以删除公共主机资源。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "删除指定主机",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标主机ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/host/{id}/publish": {
+            "post": {
+                "description": "【登录权限】用户发布属于自身的主机资源，发布后主机资源不在属于用户。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "主机管理"
+                ],
+                "summary": "发布指定主机资源",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标主机ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform": {
+            "get": {
+                "description": "【登录权限】获取所有虚拟化(云)平台资源，用户只能获取属于自身的平台资源(含公共资源)。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取所有虚拟化(云)平台资源",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "平台权限类型[0.不过滤类型，111.私有平台，222.公共平台]",
+                        "name": "auth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "平台类型过滤参数[0.不过滤类型，11.VMWARE，12.CAS，13.HCS，14.OPENSTACK]",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称、IP搜索过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/platform.Platform"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "【登录权限】添加一个虚拟化(云)平台。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "添加虚拟化(云)平台",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "平台名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "平台类型[11.VMware，12.Cas, 13.HCS，14.OpenStack]",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台访问ip",
+                        "name": "ip",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "平台访问port",
+                        "name": "port",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Platform"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/support": {
+            "get": {
+                "description": "【登录权限】获取已支持虚拟化(云)平台类型[11.VMware，12.Cas, 13.HCS，14.OpenStack]。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取已支持虚拟化(云)平台类型",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/tenant": {
+            "post": {
+                "description": "【登录权限】添加云平台租户。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "添加云平台租户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "云平台Id",
+                        "name": "platformId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "租户名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "访问域Id",
+                        "name": "domainId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "租户登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "租户登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Tenant"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/tenant/:id": {
+            "get": {
+                "description": "【登录权限】获取指定租户信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取指定云平台租户信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标云平台租户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Tenant"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "【登录权限】编辑指定云平台租户信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "编辑指定云平台租户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标云平台租户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "访问域Id",
+                        "name": "domainId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "租户登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "租户登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Tenant"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定云平台租户。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "删除指定云平台租户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标云平台租户ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定虚拟化(云)平台资源信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取指定虚拟化(云)平台资源信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Platform"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "【登录权限】编辑指定虚拟化(云)平台，用户只允许编辑属于自身的平台资源，管理员可以编辑公共平台资源， 超级管理员可用编辑所有平台资源。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "编辑指定虚拟化(云)平台",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台访问ip",
+                        "name": "ip",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "平台访问port",
+                        "name": "port",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台登录账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "平台登录密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/platform.Platform"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定虚拟化(云)平台，用户只允许删除属于自身的平台资源，管理员可以删除公共平台资源， 超级管理员可用删除所有平台资源。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "删除指定虚拟化(云)平台",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/{id}/publish": {
+            "post": {
+                "description": "【登录权限】用户发布属于自身的虚拟化(云)平台资源，发布后平台资源不在属于用户。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "发布指定虚拟化(云)平台资源",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/{id}/tenant": {
+            "get": {
+                "description": "【登录权限】获取指定云平台的所有租户信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取云平台所有租户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标云平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/platform.Tenant"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/platform/{id}/vmware/datasources": {
+            "get": {
+                "description": "【登录权限】获取VMware平台数据源信息，用户只能获取属于自身的平台资源(含公共资源)。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "平台管理"
+                ],
+                "summary": "获取VMware平台数据源",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标平台ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据源路径[初始值传空]",
+                        "name": "fullPath",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "数据源浏览方式[1.按计算资源浏览, 2.按虚拟机和模板浏览, 3.按存储浏览， 4.按网络浏览]",
+                        "name": "showType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "是否获取所有",
+                        "name": "isGetAll",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "是否获取虚拟机",
+                        "name": "isGetVm",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/vsphere.DataSource"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/store_pool": {
+            "get": {
+                "description": "【登录权限】获取平台上所有存储池信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "存储池管理"
+                ],
+                "summary": "获取所有存储池",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称搜索过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/pool.StorePool"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "【管理员权限】创建一个新存储池。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "存储池管理"
+                ],
+                "summary": "创建存储池",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "存储池名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "存储池描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/pool.StorePool"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/store_pool/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定存储池信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "存储池管理"
+                ],
+                "summary": "获取指定存储池",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标存储池ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/pool.StorePool"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【管理员权限】删除指定存储池。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "存储池管理"
+                ],
+                "summary": "删除存储池",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标存储池ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/script/browse": {
+            "get": {
+                "description": "【登录权限】浏览脚本列表。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "脚本管理"
+                ],
+                "summary": "浏览脚本列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称搜索过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/script.Script"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/script/upload": {
+            "post": {
+                "description": "【登录权限】上传脚本。",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "脚本管理"
+                ],
+                "summary": "上传脚本",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "目标脚本文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "脚本描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/script.Script"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/script/{id}/content": {
+            "get": {
+                "description": "【登录权限】查看脚本内容。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "脚本管理"
+                ],
+                "summary": "查看脚本内容",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "指定脚本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/script/{id}/delete": {
+            "delete": {
+                "description": "删除脚本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "脚本管理"
+                ],
+                "summary": "删除脚本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "指定脚本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/script/{id}/download": {
+            "get": {
+                "description": "下载脚本。",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "脚本管理"
+                ],
+                "summary": "下载脚本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "指定脚本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/ceph": {
+            "get": {
+                "description": "【登录权限】获取ceph集群信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "服务器管理"
+                ],
+                "summary": "获取ceph集群信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/system.CephDetailInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/server/dashboard": {
+            "get": {
+                "description": "【登录权限】获取平台统计信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "服务器管理"
+                ],
+                "summary": "获取平台统计信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/system.Dashboard"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/server/system": {
+            "get": {
+                "description": "【登录权限】获取服务器状态信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "服务器管理"
+                ],
+                "summary": "获取服务器状态信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/system.Server"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/image": {
+            "get": {
+                "description": "【登录权限】获取所有镜像信息，普通用户与系统管理员只能获取公共镜像或自身创建的镜像信息，超级管理员可以获取平台上所有的镜像信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "获取所有镜像信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "镜像权限过滤参数[0.不过滤类型，111.私有镜像，222.公有镜像]",
+                        "name": "auth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "镜像类型过滤参数[0.不过滤类型，1001.FILE，1002.ISO，1003.CUSTOME，1004.VMWAREVM，1005.CASVM，1006.HCSVM，1007.OPENSTACKVM]",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称搜索过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/image.Image"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/image/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定镜像信息，普通用户与系统管理员只能获取公共镜像或自身创建的镜像信息，超级管理员可以获取平台上所有的镜像信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "获取指定镜像",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标镜像ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/image.Image"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定镜像，普通用户自能删除属于自身的镜像，管理员可删除自身及公有镜像，超级管理员可删除所有镜像。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "删除镜像",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标镜像ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/image/{id}/publish": {
+            "post": {
+                "description": "【登录权限】发布指定镜像，只能发布属于用户自身的镜像。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "发布镜像",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标镜像ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/image.Image"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/image/{id}/replica": {
+            "post": {
+                "description": "【登录权限】通过指定镜像生成副本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "生成副本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标镜像ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "副本名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "副本描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica": {
+            "get": {
+                "description": "【登录权限】获取所有副本信息，普通用户与系统管理员只能获取自身创建的副本信息，超级管理员可以获取平台上所有的副本信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取所有副本信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "副本状态过滤参数[0.不过滤，1024.未挂载，2048.挂载中，4096.已挂载",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "镜像类型过滤参数[0.不过滤类型，1001.FILE，1002.ISO，1003.CUSTOME，1004.VMWAREVM，1005.CASVM，1006.HCSVM，1007.OPENSTACKVM]",
+                        "name": "dataType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称搜索过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/replica.Replica"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "【登录权限】创建一个新副本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "创建副本",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "副本名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "副本类型[1001.File, 1002.ISO, 1003.CUSTOME, 1004.VMware, 1005.Cas, 1006.HCS, 1007.OpenStack]",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "副本大小[单位：GB]",
+                        "name": "size",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "所在存储池uuid",
+                        "name": "storePoolId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/:id/mount/instance": {
+            "get": {
+                "description": "【登录权限】获取副本执行记录。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取副本执行实例记录",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/instance.Instance"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/batch/mount": {
+            "post": {
+                "description": "【登录权限】批量挂载副本到目标平台。\n\n【emphasis】 参数AppConfig需要根据应用区分，组织不同形式的[key:value]字符串。\n----Linux平台：\n--------【可选参数:string】mountPoint：目标挂载位置\n----VMware平台：\n--------【必填参数:string】locationPath：挂载清单位置\n--------【必填参数:string】computeResource：挂载计算资源\n--------【必填参数:bool】isRegisterVM：是否注册虚拟机\n--------【选填参数:string】vmName：指定虚拟机注册名称\n--------【选填参数:bool】powerOn：虚拟机注册后是否打开电源\n--------【选填参数:string】hostName：指定虚拟机操作系统主机名\n--------【选填参数:string】addr：指定虚拟机操作系统IP地址\n--------【选填参数:string】netMask：指定虚拟机操作系统网关\n--------【选填参数:string】gateWay：指定虚拟机操作系统掩码",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "批量挂载副本",
+                "parameters": [
+                    {
+                        "description": "批量挂载参数",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/view.BatchMountParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/replica.Replica"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/batch/unmount": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "parameters": [
+                    {
+                        "description": "批量挂载参数",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/view.BatchUnmountParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/replica.Replica"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/mount": {
+            "post": {
+                "description": "【登录权限】挂载副本到目标平台。\n\n【emphasis】 参数AppConfig需要根据应用区分，组织不同形式的[key:value]字符串。\n----Linux平台：\n--------【可选参数:string】mountPoint：目标挂载位置\n----VMware平台：\n--------【必填参数:string】locationPath：挂载清单位置\n--------【必填参数:string】computeResource：挂载计算资源\n--------【必填参数:bool】isRegisterVM：是否注册虚拟机\n--------【选填参数:string】vmName：指定虚拟机注册名称\n--------【选填参数:bool】powerOn：虚拟机注册后是否打开电源\n--------【选填参数:string】hostName：指定虚拟机操作系统主机名\n--------【选填参数:string】addr：指定虚拟机操作系统IP地址\n--------【选填参数:string】netMask：指定虚拟机操作系统网关\n--------【选填参数:string】gateWay：指定虚拟机操作系统掩码\n----CAS平台：\n--------【必填参数:string】name：虚拟机名称\n--------【必填参数:int】hostId：主机id\n--------【必填参数:int】system：操作系统编号（可以为1）\n--------【选填参数:string】osVersion：操作系统名称，可以为空字符串\n--------【选填参数:int】vsId：虚拟机交换机id，一般为1\n--------【选填参数:bool】isRegisterVM：是否新建虚拟机",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "挂载副本",
+                "parameters": [
+                    {
+                        "description": "挂载参数",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/view.MountParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/mount/instance/:id/logs": {
+            "get": {
+                "description": "【登录权限】获取执行记录详情。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取指定副本执行实例详情",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标实例ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/instance.InstanceLog"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/mount_type": {
+            "get": {
+                "description": "【登录权限】获取已支持副本挂载类型[1.应用默认挂载， 2.仅导出共享路径]。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取已支持副本挂载类型",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/support": {
+            "get": {
+                "description": "【登录权限】获取已支持虚副本镜像类型[1001.File, 1002.ISO, 1003.CUSTOME, 1004.VMware, 1005.Cas, 1006.HCS, 1007.OpenStack]。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取已支持副本镜像类型",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定副本信息，普通用户与系统管理员只能获取自身创建的副本信息，超级管理员可以获取平台上所有的副本信息。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "镜像管理"
+                ],
+                "summary": "获取指定副本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "【登录权限】编辑指定副本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "编辑指定副本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "描述",
+                        "name": "desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "副本大小[单位：GB]",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定副本，普通用户与系统管理员只能删除属于自身的副本，超级管理员可删除所有副本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "删除指定副本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/{id}/image": {
+            "post": {
+                "description": "【登录权限】根据所选副本生成一个新的镜像。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "生成镜像",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "镜像名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "镜像描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/image.Image"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/replica/{id}/snapshot": {
+            "get": {
+                "description": "【登录权限】获取指定副本所有快照信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "获取指定副本所有快照信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "分页索引",
+                        "name": "index",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 15,
+                        "description": "分页数量",
+                        "name": "count",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "名称过滤参数",
+                        "name": "filter",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/api.Paging"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "data": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/snapshot.Snapshot"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "【登录权限】转换指定副本为镜像。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "创建快照",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "快照名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "快照描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/snapshot.Snapshot"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定副本所有快照",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "副本管理"
+                ],
+                "summary": "删除指定副本所有快照",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标副本ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/snapshot/{id}": {
+            "get": {
+                "description": "【登录权限】获取指定快照信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "快照管理"
+                ],
+                "summary": "获取指定快照信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标快照ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/snapshot.Snapshot"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "【登录权限】删除指定快照。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "快照管理"
+                ],
+                "summary": "删除快照",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标快照ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/snapshot/{id}/image": {
+            "post": {
+                "description": "【登录权限】根据所选快照生成一个新的镜像。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "快照管理"
+                ],
+                "summary": "生成镜像",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标快照ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "镜像名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "镜像描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/image.Image"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/snapshot/{id}/replica": {
+            "post": {
+                "description": "【登录权限】通过指定快照生成一个新的副本。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "快照管理"
+                ],
+                "summary": "生成副本",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标快照ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "副本名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "\"\"",
+                        "description": "副本描述",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/api.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "$ref": "#/definitions/replica.Replica"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/store_pool/snapshot/{id}/rollback": {
+            "post": {
+                "description": "【登录权限】回滚快照副本到指定快照，非空闲状态【挂载中、卸载中、卸载失败、已挂载等】副本不允许回滚。",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "快照管理"
+                ],
+                "summary": "回滚快照",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "目标快照ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.Paging": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "totalNum": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object"
+                }
+            }
+        },
+        "api.Token": {
+            "type": "object",
+            "properties": {
+                "expire": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.Role": {
+            "type": "object",
+            "properties": {
+                "created_time": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.User": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mail": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "object",
+                    "$ref": "#/definitions/auth.Role"
+                },
+                "role_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updated_time": {
+                    "type": "string"
+                },
+                "usage_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "host.Host": {
+            "type": "object",
+            "properties": {
+                "arch": {
+                    "type": "string"
+                },
+                "auth_type": {
+                    "type": "integer"
+                },
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "os": {
+                    "type": "string"
+                },
+                "passWord": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "image.Image": {
+            "type": "object",
+            "properties": {
+                "auth_type": {
+                    "type": "integer"
+                },
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "object",
+                    "$ref": "#/definitions/pool.StorePool"
+                },
+                "pool_id": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "instance.Instance": {
+            "type": "object",
+            "properties": {
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mount_point": {
+                    "type": "string"
+                },
+                "replica_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "target_id": {
+                    "type": "integer"
+                },
+                "target_type": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "instance.InstanceLog": {
+            "type": "object",
+            "properties": {
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "detail": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "info": {
+                    "type": "string"
+                },
+                "instance_id": {
+                    "type": "integer"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "log.LogRecord": {
+            "type": "object",
+            "properties": {
+                "created_time": {
+                    "type": "string"
+                },
+                "detail": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "object": {
+                    "type": "string"
+                },
+                "operation": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "platform.Platform": {
+            "type": "object",
+            "properties": {
+                "auth_type": {
+                    "type": "integer"
+                },
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "passWord": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "platform.Tenant": {
+            "type": "object",
+            "properties": {
+                "desc": {
+                    "type": "string"
+                },
+                "domain_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "passWord": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "object",
+                    "$ref": "#/definitions/platform.Platform"
+                },
+                "platform_id": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "pool.StorePool": {
+            "type": "object",
+            "properties": {
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "replica.Replica": {
+            "type": "object",
+            "properties": {
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "export": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "object",
+                    "$ref": "#/definitions/pool.StorePool"
+                },
+                "pool_id": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "script.Script": {
+            "type": "object",
+            "properties": {
+                "create_user": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "snapshot.Snapshot": {
+            "type": "object",
+            "properties": {
+                "created_time": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "replica": {
+                    "type": "object",
+                    "$ref": "#/definitions/replica.Replica"
+                },
+                "replica_id": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.CephDetailInfo": {
+            "type": "object",
+            "properties": {
+                "election_epoch": {
+                    "type": "integer"
+                },
+                "fsid": {
+                    "type": "string"
+                },
+                "fsmap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.FsMap"
+                },
+                "health": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Health"
+                },
+                "mgrmap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.MgrMap"
+                },
+                "monmap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.MonMap"
+                },
+                "osdmap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.OsdMap"
+                },
+                "pgmap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.PgMap"
+                },
+                "quorum": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "quorum_names": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "servicemap": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.ServiceMap"
+                }
+            }
+        },
+        "system.Cpu": {
+            "type": "object",
+            "properties": {
+                "cores": {
+                    "type": "integer"
+                },
+                "cpus": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "system.Dashboard": {
+            "type": "object",
+            "properties": {
+                "hostStat": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.ResourceStat"
+                },
+                "imageStat": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.ResourceStat"
+                },
+                "platformStat": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.ResourceStat"
+                },
+                "poolStat": {
+                    "type": "integer"
+                },
+                "replicaStat": {
+                    "type": "integer"
+                },
+                "scriptStat": {
+                    "type": "integer"
+                },
+                "userStat": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.UserStat"
+                }
+            }
+        },
+        "system.Disk": {
+            "type": "object",
+            "properties": {
+                "totalGb": {
+                    "type": "integer"
+                },
+                "totalMb": {
+                    "type": "integer"
+                },
+                "usedGb": {
+                    "type": "integer"
+                },
+                "usedMb": {
+                    "type": "integer"
+                },
+                "usedPercent": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.Features": {
+            "type": "object",
+            "properties": {
+                "optional": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "persistent": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "system.FsMap": {
+            "type": "object",
+            "properties": {
+                "by_rank": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "epoch": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.Health": {
+            "type": "object",
+            "properties": {
+                "checks": {
+                    "type": "object"
+                },
+                "overall_status": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.MgrMap": {
+            "type": "object",
+            "properties": {
+                "active_addr": {
+                    "type": "string"
+                },
+                "active_gid": {
+                    "type": "integer"
+                },
+                "active_name": {
+                    "type": "string"
+                },
+                "available": {
+                    "type": "boolean"
+                },
+                "available_modules": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "epoch": {
+                    "type": "integer"
+                },
+                "modules": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "services": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Services"
+                },
+                "standbys": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "system.MonMap": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "epoch": {
+                    "type": "integer"
+                },
+                "features": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Features"
+                },
+                "fsid": {
+                    "type": "string"
+                },
+                "modified": {
+                    "type": "string"
+                },
+                "mons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.Mons"
+                    }
+                }
+            }
+        },
+        "system.Mons": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "public_addr": {
+                    "type": "string"
+                },
+                "rank": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.Os": {
+            "type": "object",
+            "properties": {
+                "compiler": {
+                    "type": "string"
+                },
+                "goVersion": {
+                    "type": "string"
+                },
+                "goos": {
+                    "type": "string"
+                },
+                "numCpu": {
+                    "type": "integer"
+                },
+                "numGoroutine": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.OsdMap": {
+            "type": "object",
+            "properties": {
+                "epoch": {
+                    "type": "integer"
+                },
+                "num_in_osds": {
+                    "type": "integer"
+                },
+                "num_osds": {
+                    "type": "integer"
+                },
+                "num_remapped_pgs": {
+                    "type": "integer"
+                },
+                "num_up_osds": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.PgMap": {
+            "type": "object",
+            "properties": {
+                "bytes_avail": {
+                    "type": "integer"
+                },
+                "bytes_total": {
+                    "type": "integer"
+                },
+                "bytes_used": {
+                    "type": "integer"
+                },
+                "data_bytes": {
+                    "type": "integer"
+                },
+                "inactive_pgs_ratio": {
+                    "type": "number"
+                },
+                "num_objects": {
+                    "type": "integer"
+                },
+                "num_pgs": {
+                    "type": "integer"
+                },
+                "num_pools": {
+                    "type": "integer"
+                },
+                "pgs_by_state": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.PgsByState"
+                    }
+                },
+                "unknown_pgs_ratio": {
+                    "type": "number"
+                }
+            }
+        },
+        "system.PgsByState": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "state_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.ResourceStat": {
+            "type": "object",
+            "properties": {
+                "private": {
+                    "type": "integer"
+                },
+                "public": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.Rrm": {
+            "type": "object",
+            "properties": {
+                "totalMb": {
+                    "type": "integer"
+                },
+                "usedMb": {
+                    "type": "integer"
+                },
+                "usedPercent": {
+                    "type": "integer"
+                }
+            }
+        },
+        "system.Server": {
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Cpu"
+                },
+                "disk": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Disk"
+                },
+                "os": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Os"
+                },
+                "ram": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Rrm"
+                }
+            }
+        },
+        "system.ServiceMap": {
+            "type": "object",
+            "properties": {
+                "epoch": {
+                    "type": "integer"
+                },
+                "modified": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "object",
+                    "$ref": "#/definitions/system.Services"
+                }
+            }
+        },
+        "system.Services": {
+            "type": "object"
+        },
+        "system.UserStat": {
+            "type": "object",
+            "properties": {
+                "activeNum": {
+                    "description": "活跃用户数",
+                    "type": "integer"
+                },
+                "todayNum": {
+                    "description": "今日访问用户数",
+                    "type": "integer"
+                },
+                "totalNum": {
+                    "description": "用户总数",
+                    "type": "integer"
+                }
+            }
+        },
+        "view.BatchMountParam": {
+            "type": "object",
+            "required": [
+                "mountInfos"
+            ],
+            "properties": {
+                "mountInfos": {
+                    "description": "挂载信息列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/view.MountInfo"
+                    }
+                }
+            }
+        },
+        "view.BatchUnmountParam": {
+            "type": "object",
+            "required": [
+                "unMountInfo"
+            ],
+            "properties": {
+                "unMountInfo": {
+                    "description": "卸载载信息列表",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "view.MountInfo": {
+            "type": "object",
+            "required": [
+                "mountType",
+                "replicaId",
+                "targetId",
+                "targetType"
+            ],
+            "properties": {
+                "appConfig": {
+                    "description": "应用配置",
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "isExecScript": {
+                    "description": "是否执行脚本",
+                    "type": "boolean"
+                },
+                "mountType": {
+                    "description": "挂载类型",
+                    "type": "integer"
+                },
+                "replicaId": {
+                    "description": "目标副本id",
+                    "type": "integer"
+                },
+                "scriptId": {
+                    "description": "所选脚本ID",
+                    "type": "integer"
+                },
+                "targetId": {
+                    "description": "目标平台id",
+                    "type": "integer"
+                },
+                "targetType": {
+                    "description": "目标平台类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "view.MountParam": {
+            "type": "object",
+            "required": [
+                "mountInfo"
+            ],
+            "properties": {
+                "mountInfo": {
+                    "description": "挂载信息",
+                    "type": "object",
+                    "$ref": "#/definitions/view.MountInfo"
+                }
+            }
+        },
+        "vsphere.DataSource": {
+            "type": "object",
+            "properties": {
+                "checkable": {
+                    "type": "boolean"
+                },
+                "expanded": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

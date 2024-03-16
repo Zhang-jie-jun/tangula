@@ -1,0 +1,2892 @@
+definitions:
+  api.Paging:
+    properties:
+      data:
+        type: object
+      totalNum:
+        type: integer
+    type: object
+  api.Result:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      response:
+        type: object
+    type: object
+  api.Token:
+    properties:
+      expire:
+        type: string
+      token:
+        type: string
+    type: object
+  auth.Role:
+    properties:
+      created_time:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  auth.User:
+    properties:
+      account:
+        type: string
+      created_time:
+        type: string
+      id:
+        type: integer
+      mail:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      role:
+        $ref: '#/definitions/auth.Role'
+        type: object
+      role_id:
+        type: integer
+      status:
+        type: integer
+      updated_time:
+        type: string
+      usage_count:
+        type: integer
+    type: object
+  host.Host:
+    properties:
+      arch:
+        type: string
+      auth_type:
+        type: integer
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      hostname:
+        type: string
+      id:
+        type: integer
+      ip:
+        type: string
+      name:
+        type: string
+      os:
+        type: string
+      passWord:
+        type: string
+      port:
+        type: integer
+      type:
+        type: integer
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  image.Image:
+    properties:
+      auth_type:
+        type: integer
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      pool:
+        $ref: '#/definitions/pool.StorePool'
+        type: object
+      pool_id:
+        type: integer
+      size:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: integer
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+  instance.Instance:
+    properties:
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      mount_point:
+        type: string
+      replica_id:
+        type: integer
+      status:
+        type: integer
+      target_id:
+        type: integer
+      target_type:
+        type: integer
+      type:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  instance.InstanceLog:
+    properties:
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      detail:
+        type: string
+      id:
+        type: integer
+      info:
+        type: string
+      instance_id:
+        type: integer
+      level:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  log.LogRecord:
+    properties:
+      created_time:
+        type: string
+      detail:
+        type: string
+      id:
+        type: integer
+      object:
+        type: string
+      operation:
+        type: string
+      status:
+        type: integer
+      user:
+        type: string
+    type: object
+  platform.Platform:
+    properties:
+      auth_type:
+        type: integer
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      ip:
+        type: string
+      name:
+        type: string
+      passWord:
+        type: string
+      port:
+        type: integer
+      type:
+        type: integer
+      updatedAt:
+        type: string
+      username:
+        type: string
+      version:
+        type: string
+    type: object
+  platform.Tenant:
+    properties:
+      desc:
+        type: string
+      domain_id:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      passWord:
+        type: string
+      platform:
+        $ref: '#/definitions/platform.Platform'
+        type: object
+      platform_id:
+        type: integer
+      username:
+        type: string
+    type: object
+  pool.StorePool:
+    properties:
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+  replica.Replica:
+    properties:
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      export:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      pool:
+        $ref: '#/definitions/pool.StorePool'
+        type: object
+      pool_id:
+        type: integer
+      size:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: integer
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+  script.Script:
+    properties:
+      create_user:
+        type: string
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      label:
+        type: string
+      name:
+        type: string
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+  snapshot.Snapshot:
+    properties:
+      created_time:
+        type: string
+      deletedAt:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      replica:
+        $ref: '#/definitions/replica.Replica'
+        type: object
+      replica_id:
+        type: integer
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+  system.CephDetailInfo:
+    properties:
+      election_epoch:
+        type: integer
+      fsid:
+        type: string
+      fsmap:
+        $ref: '#/definitions/system.FsMap'
+        type: object
+      health:
+        $ref: '#/definitions/system.Health'
+        type: object
+      mgrmap:
+        $ref: '#/definitions/system.MgrMap'
+        type: object
+      monmap:
+        $ref: '#/definitions/system.MonMap'
+        type: object
+      osdmap:
+        $ref: '#/definitions/system.OsdMap'
+        type: object
+      pgmap:
+        $ref: '#/definitions/system.PgMap'
+        type: object
+      quorum:
+        items:
+          type: integer
+        type: array
+      quorum_names:
+        items:
+          type: string
+        type: array
+      servicemap:
+        $ref: '#/definitions/system.ServiceMap'
+        type: object
+    type: object
+  system.Cpu:
+    properties:
+      cores:
+        type: integer
+      cpus:
+        items:
+          type: number
+        type: array
+    type: object
+  system.Dashboard:
+    properties:
+      hostStat:
+        $ref: '#/definitions/system.ResourceStat'
+        type: object
+      imageStat:
+        $ref: '#/definitions/system.ResourceStat'
+        type: object
+      platformStat:
+        $ref: '#/definitions/system.ResourceStat'
+        type: object
+      poolStat:
+        type: integer
+      replicaStat:
+        type: integer
+      scriptStat:
+        type: integer
+      userStat:
+        $ref: '#/definitions/system.UserStat'
+        type: object
+    type: object
+  system.Disk:
+    properties:
+      totalGb:
+        type: integer
+      totalMb:
+        type: integer
+      usedGb:
+        type: integer
+      usedMb:
+        type: integer
+      usedPercent:
+        type: integer
+    type: object
+  system.Features:
+    properties:
+      optional:
+        items:
+          type: object
+        type: array
+      persistent:
+        items:
+          type: string
+        type: array
+    type: object
+  system.FsMap:
+    properties:
+      by_rank:
+        items:
+          type: object
+        type: array
+      epoch:
+        type: integer
+    type: object
+  system.Health:
+    properties:
+      checks:
+        type: object
+      overall_status:
+        type: string
+      status:
+        type: string
+    type: object
+  system.MgrMap:
+    properties:
+      active_addr:
+        type: string
+      active_gid:
+        type: integer
+      active_name:
+        type: string
+      available:
+        type: boolean
+      available_modules:
+        items:
+          type: object
+        type: array
+      epoch:
+        type: integer
+      modules:
+        items:
+          type: string
+        type: array
+      services:
+        $ref: '#/definitions/system.Services'
+        type: object
+      standbys:
+        items:
+          type: object
+        type: array
+    type: object
+  system.MonMap:
+    properties:
+      created:
+        type: string
+      epoch:
+        type: integer
+      features:
+        $ref: '#/definitions/system.Features'
+        type: object
+      fsid:
+        type: string
+      modified:
+        type: string
+      mons:
+        items:
+          $ref: '#/definitions/system.Mons'
+        type: array
+    type: object
+  system.Mons:
+    properties:
+      addr:
+        type: string
+      name:
+        type: string
+      public_addr:
+        type: string
+      rank:
+        type: integer
+    type: object
+  system.Os:
+    properties:
+      compiler:
+        type: string
+      goVersion:
+        type: string
+      goos:
+        type: string
+      numCpu:
+        type: integer
+      numGoroutine:
+        type: integer
+    type: object
+  system.OsdMap:
+    properties:
+      epoch:
+        type: integer
+      num_in_osds:
+        type: integer
+      num_osds:
+        type: integer
+      num_remapped_pgs:
+        type: integer
+      num_up_osds:
+        type: integer
+    type: object
+  system.PgMap:
+    properties:
+      bytes_avail:
+        type: integer
+      bytes_total:
+        type: integer
+      bytes_used:
+        type: integer
+      data_bytes:
+        type: integer
+      inactive_pgs_ratio:
+        type: number
+      num_objects:
+        type: integer
+      num_pgs:
+        type: integer
+      num_pools:
+        type: integer
+      pgs_by_state:
+        items:
+          $ref: '#/definitions/system.PgsByState'
+        type: array
+      unknown_pgs_ratio:
+        type: number
+    type: object
+  system.PgsByState:
+    properties:
+      count:
+        type: integer
+      state_name:
+        type: string
+    type: object
+  system.ResourceStat:
+    properties:
+      private:
+        type: integer
+      public:
+        type: integer
+    type: object
+  system.Rrm:
+    properties:
+      totalMb:
+        type: integer
+      usedMb:
+        type: integer
+      usedPercent:
+        type: integer
+    type: object
+  system.Server:
+    properties:
+      cpu:
+        $ref: '#/definitions/system.Cpu'
+        type: object
+      disk:
+        $ref: '#/definitions/system.Disk'
+        type: object
+      os:
+        $ref: '#/definitions/system.Os'
+        type: object
+      ram:
+        $ref: '#/definitions/system.Rrm'
+        type: object
+    type: object
+  system.ServiceMap:
+    properties:
+      epoch:
+        type: integer
+      modified:
+        type: string
+      services:
+        $ref: '#/definitions/system.Services'
+        type: object
+    type: object
+  system.Services:
+    type: object
+  system.UserStat:
+    properties:
+      activeNum:
+        description: 活跃用户数
+        type: integer
+      todayNum:
+        description: 今日访问用户数
+        type: integer
+      totalNum:
+        description: 用户总数
+        type: integer
+    type: object
+  view.BatchMountParam:
+    properties:
+      mountInfos:
+        description: 挂载信息列表
+        items:
+          $ref: '#/definitions/view.MountInfo'
+        type: array
+    required:
+    - mountInfos
+    type: object
+  view.BatchUnmountParam:
+    properties:
+      unMountInfo:
+        description: 卸载载信息列表
+        items:
+          type: integer
+        type: array
+    required:
+    - unMountInfo
+    type: object
+  view.MountInfo:
+    properties:
+      appConfig:
+        additionalProperties: true
+        description: 应用配置
+        type: object
+      isExecScript:
+        description: 是否执行脚本
+        type: boolean
+      mountType:
+        description: 挂载类型
+        type: integer
+      replicaId:
+        description: 目标副本id
+        type: integer
+      scriptId:
+        description: 所选脚本ID
+        type: integer
+      targetId:
+        description: 目标平台id
+        type: integer
+      targetType:
+        description: 目标平台类型
+        type: integer
+    required:
+    - mountType
+    - replicaId
+    - targetId
+    - targetType
+    type: object
+  view.MountParam:
+    properties:
+      mountInfo:
+        $ref: '#/definitions/view.MountInfo'
+        description: 挂载信息
+        type: object
+    required:
+    - mountInfo
+    type: object
+  vsphere.DataSource:
+    properties:
+      checkable:
+        type: boolean
+      expanded:
+        type: boolean
+      name:
+        type: string
+      path:
+        type: string
+      type:
+        type: string
+      uuid:
+        type: string
+    type: object
+host: 127.0.0.1:8000
+info:
+  contact:
+    email: zhang.jiejun@outlook.com
+    name: API Support
+    url: http://www.swagger.io/support
+  description: |-
+    Tangula API接口文档
+    唐古拉山脉，长江正源，滋润万物。
+    Tangula 寓意数据的源头，为研发团队提供即取即用的数据服务，帮助团队高效产出。
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Tangula
+  version: "1.0"
+paths:
+  /auth/role:
+    get:
+      consumes:
+      - application/json
+      description: 【管理员权限】获取角色列表。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 名称过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/auth.Role'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取角色列表
+      tags:
+      - 用户鉴权
+  /auth/token:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】刷新token有效期。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/api.Token'
+              type: object
+      summary: 刷新token
+      tags:
+      - 用户鉴权
+  /auth/user:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定用户信息(用户ID，用户名称，用户账号, 用户邮箱，联系方式, 用户角色，用户状态等)。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/auth.User'
+              type: object
+      summary: 获取用户信息
+      tags:
+      - 用户鉴权
+  /auth/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 【管理员权限】获取指定用户信息(用户ID，用户名称，用户账号, 用户邮箱，联系方式, 用户角色，用户状态等)。
+      parameters:
+      - description: 目标用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/auth.User'
+              type: object
+      summary: 获取指定用户信息
+      tags:
+      - 用户鉴权
+  /auth/user/{id}/disable:
+    put:
+      consumes:
+      - application/json
+      description: 【系统管理员权限】禁用用户权限，禁用后用户不可登录平台、操作平台资源。
+      parameters:
+      - description: 目标用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 禁用用户
+      tags:
+      - 用户鉴权
+  /auth/user/{id}/enable:
+    put:
+      consumes:
+      - application/json
+      description: 【系统管理员权限】启用用户权限。
+      parameters:
+      - description: 目标用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 启用用户
+      tags:
+      - 用户鉴权
+  /auth/user/{id}/set_role:
+    put:
+      consumes:
+      - application/json
+      description: 【管理员权限】编辑用户角色。
+      parameters:
+      - description: 目标用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 角色名称[普通用户、系统管理员]
+        in: query
+        name: roleName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 编辑用户角色
+      tags:
+      - 用户鉴权
+  /auth/users:
+    get:
+      consumes:
+      - application/json
+      description: 【超级管理员权限】获取平台上所有用户信息，支持分页、按角色类型、用户名称、用户账户、用户邮箱过滤。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 角色过滤参数[普通用户、系统管理员]
+        in: query
+        name: roleName
+        type: string
+      - default: '""'
+        description: 用户名称、用户账号、用户邮箱过滤参数[模糊匹配]
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/auth.User'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取用户列表
+      tags:
+      - 用户鉴权
+  /log/record:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取所有操作日志记录，普通用户只能获取自身的操作日志记录，系统管理员平台上所有用户的操作日志记录。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 用户名称
+        in: query
+        name: user
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/log.LogRecord'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有日志记录
+      tags:
+      - 日志管理
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录获取token。
+      parameters:
+      - description: 用户名称
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 用户密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/api.Token'
+              type: object
+      summary: 用户登录
+      tags:
+      - 用户鉴权
+  /logout:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】用户注销登录。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 用户注销
+      tags:
+      - 用户鉴权
+  /resource/host:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取所有主机资源，用户只能获取属于自身的主机资源(含公共资源)。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: 0
+        description: 权限过滤类型[0.不过滤, 111.私有，222.公共]
+        in: query
+        name: auth
+        type: integer
+      - default: 0
+        description: 主机过滤类型[0.不过滤, 51.Linux主机，52.Windows主机]
+        in: query
+        name: type
+        type: integer
+      - default: '""'
+        description: 名称、IP过滤参数[模糊匹配]
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/host.Host'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有主机资源
+      tags:
+      - 主机管理
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】添加一个主机。
+      parameters:
+      - description: 主机名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - description: 主机类型[51.Linux, 52.Windows]
+        in: query
+        name: type
+        required: true
+        type: integer
+      - description: 主机访问ip
+        in: query
+        name: ip
+        required: true
+        type: string
+      - description: 主机访问port
+        in: query
+        name: port
+        required: true
+        type: integer
+      - description: 主机登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 主机登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/host.Host'
+              type: object
+      summary: 添加主机
+      tags:
+      - 主机管理
+  /resource/host/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定主机，用户只允许删除属于自身的主机资源，管理员可以删除公共主机资源。
+      parameters:
+      - description: 目标主机ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除指定主机
+      tags:
+      - 主机管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定主机资源信息。
+      parameters:
+      - description: 目标主机ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/host.Host'
+              type: object
+      summary: 获取指定主机资源信息
+      tags:
+      - 主机管理
+    put:
+      consumes:
+      - application/json
+      description: 【登录权限】编辑指定主机，用户只允许编辑属于自身的主机资源，管理员可以编辑公共主机资源。
+      parameters:
+      - description: 目标主机ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - description: 主机访问ip
+        in: query
+        name: ip
+        required: true
+        type: string
+      - description: 主机访问port
+        in: query
+        name: port
+        required: true
+        type: integer
+      - description: 主机登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 主机登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/host.Host'
+              type: object
+      summary: 编辑指定主机
+      tags:
+      - 主机管理
+  /resource/host/{id}/publish:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】用户发布属于自身的主机资源，发布后主机资源不在属于用户。
+      parameters:
+      - description: 目标主机ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 发布指定主机资源
+      tags:
+      - 主机管理
+  /resource/host/support:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取已支持虚主机资源类型[51.Linux, 52.Windows]。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 获取已支持主机资源类型
+      tags:
+      - 主机管理
+  /resource/platform:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取所有虚拟化(云)平台资源，用户只能获取属于自身的平台资源(含公共资源)。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: 0
+        description: 平台权限类型[0.不过滤类型，111.私有平台，222.公共平台]
+        in: query
+        name: auth
+        type: integer
+      - default: 0
+        description: 平台类型过滤参数[0.不过滤类型，11.VMWARE，12.CAS，13.HCS，14.OPENSTACK]
+        in: query
+        name: type
+        type: integer
+      - default: '""'
+        description: 名称、IP搜索过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/platform.Platform'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有虚拟化(云)平台资源
+      tags:
+      - 平台管理
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】添加一个虚拟化(云)平台。
+      parameters:
+      - description: 平台名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - description: 平台类型[11.VMware，12.Cas, 13.HCS，14.OpenStack]
+        in: query
+        name: type
+        required: true
+        type: integer
+      - description: 平台访问ip
+        in: query
+        name: ip
+        required: true
+        type: string
+      - description: 平台访问port
+        in: query
+        name: port
+        required: true
+        type: integer
+      - description: 平台登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 平台登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Platform'
+              type: object
+      summary: 添加虚拟化(云)平台
+      tags:
+      - 平台管理
+  /resource/platform/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定虚拟化(云)平台，用户只允许删除属于自身的平台资源，管理员可以删除公共平台资源， 超级管理员可用删除所有平台资源。
+      parameters:
+      - description: 目标平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除指定虚拟化(云)平台
+      tags:
+      - 平台管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定虚拟化(云)平台资源信息。
+      parameters:
+      - description: 目标平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Platform'
+              type: object
+      summary: 获取指定虚拟化(云)平台资源信息
+      tags:
+      - 平台管理
+    put:
+      consumes:
+      - application/json
+      description: 【登录权限】编辑指定虚拟化(云)平台，用户只允许编辑属于自身的平台资源，管理员可以编辑公共平台资源， 超级管理员可用编辑所有平台资源。
+      parameters:
+      - description: 目标平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - description: 平台访问ip
+        in: query
+        name: ip
+        required: true
+        type: string
+      - description: 平台访问port
+        in: query
+        name: port
+        required: true
+        type: integer
+      - description: 平台登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 平台登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Platform'
+              type: object
+      summary: 编辑指定虚拟化(云)平台
+      tags:
+      - 平台管理
+  /resource/platform/{id}/publish:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】用户发布属于自身的虚拟化(云)平台资源，发布后平台资源不在属于用户。
+      parameters:
+      - description: 目标平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 发布指定虚拟化(云)平台资源
+      tags:
+      - 平台管理
+  /resource/platform/{id}/tenant:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定云平台的所有租户信息。
+      parameters:
+      - description: 目标云平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/platform.Tenant'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取云平台所有租户
+      tags:
+      - 平台管理
+  /resource/platform/{id}/vmware/datasources:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取VMware平台数据源信息，用户只能获取属于自身的平台资源(含公共资源)。
+      parameters:
+      - description: 目标平台ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 数据源路径[初始值传空]
+        in: query
+        name: fullPath
+        required: true
+        type: string
+      - description: 数据源浏览方式[1.按计算资源浏览, 2.按虚拟机和模板浏览, 3.按存储浏览， 4.按网络浏览]
+        in: query
+        name: showType
+        required: true
+        type: integer
+      - default: false
+        description: 是否获取所有
+        in: query
+        name: isGetAll
+        type: boolean
+      - default: false
+        description: 是否获取虚拟机
+        in: query
+        name: isGetVm
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/vsphere.DataSource'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取VMware平台数据源
+      tags:
+      - 平台管理
+  /resource/platform/support:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取已支持虚拟化(云)平台类型[11.VMware，12.Cas, 13.HCS，14.OpenStack]。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 获取已支持虚拟化(云)平台类型
+      tags:
+      - 平台管理
+  /resource/platform/tenant:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】添加云平台租户。
+      parameters:
+      - description: 云平台Id
+        in: query
+        name: platformId
+        required: true
+        type: integer
+      - description: 租户名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 访问域Id
+        in: query
+        name: domainId
+        required: true
+        type: string
+      - description: 租户登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 租户登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Tenant'
+              type: object
+      summary: 添加云平台租户
+      tags:
+      - 平台管理
+  /resource/platform/tenant/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定云平台租户。
+      parameters:
+      - description: 目标云平台租户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除指定云平台租户
+      tags:
+      - 平台管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定租户信息。
+      parameters:
+      - description: 目标云平台租户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Tenant'
+              type: object
+      summary: 获取指定云平台租户信息
+      tags:
+      - 平台管理
+    put:
+      consumes:
+      - application/json
+      description: 【登录权限】编辑指定云平台租户信息。
+      parameters:
+      - description: 目标云平台租户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 访问域Id
+        in: query
+        name: domainId
+        required: true
+        type: string
+      - description: 租户登录账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 租户登录密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/platform.Tenant'
+              type: object
+      summary: 编辑指定云平台租户
+      tags:
+      - 平台管理
+  /resource/store_pool:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取平台上所有存储池信息。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 名称搜索过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/pool.StorePool'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有存储池
+      tags:
+      - 存储池管理
+    post:
+      consumes:
+      - application/json
+      description: 【管理员权限】创建一个新存储池。
+      parameters:
+      - description: 存储池名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 存储池描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/pool.StorePool'
+              type: object
+      summary: 创建存储池
+      tags:
+      - 存储池管理
+  /resource/store_pool/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【管理员权限】删除指定存储池。
+      parameters:
+      - description: 目标存储池ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除存储池
+      tags:
+      - 存储池管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定存储池信息。
+      parameters:
+      - description: 目标存储池ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/pool.StorePool'
+              type: object
+      summary: 获取指定存储池
+      tags:
+      - 存储池管理
+  /script/{id}/content:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】查看脚本内容。
+      parameters:
+      - description: 指定脚本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  items:
+                    type: integer
+                  type: array
+              type: object
+      summary: 查看脚本内容
+      tags:
+      - 脚本管理
+  /script/{id}/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除脚本。
+      parameters:
+      - description: 指定脚本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除脚本
+      tags:
+      - 脚本管理
+  /script/{id}/download:
+    get:
+      consumes:
+      - multipart/form-data
+      description: 下载脚本。
+      parameters:
+      - description: 指定脚本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 下载脚本
+      tags:
+      - 脚本管理
+  /script/browse:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】浏览脚本列表。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 名称搜索过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  items:
+                    $ref: '#/definitions/script.Script'
+                  type: array
+              type: object
+      summary: 浏览脚本列表
+      tags:
+      - 脚本管理
+  /script/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 【登录权限】上传脚本。
+      parameters:
+      - description: 目标脚本文件
+        in: formData
+        name: file
+        required: true
+        type: string
+      - default: '""'
+        description: 脚本描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/script.Script'
+              type: object
+      summary: 上传脚本
+      tags:
+      - 脚本管理
+  /server/ceph:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取ceph集群信息。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/system.CephDetailInfo'
+              type: object
+      summary: 获取ceph集群信息
+      tags:
+      - 服务器管理
+  /server/dashboard:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取平台统计信息。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/system.Dashboard'
+              type: object
+      summary: 获取平台统计信息
+      tags:
+      - 服务器管理
+  /server/system:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取服务器状态信息。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/system.Server'
+              type: object
+      summary: 获取服务器状态信息
+      tags:
+      - 服务器管理
+  /store_pool/image:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取所有镜像信息，普通用户与系统管理员只能获取公共镜像或自身创建的镜像信息，超级管理员可以获取平台上所有的镜像信息。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: 0
+        description: 镜像权限过滤参数[0.不过滤类型，111.私有镜像，222.公有镜像]
+        in: query
+        name: auth
+        type: integer
+      - default: 0
+        description: 镜像类型过滤参数[0.不过滤类型，1001.FILE，1002.ISO，1003.CUSTOME，1004.VMWAREVM，1005.CASVM，1006.HCSVM，1007.OPENSTACKVM]
+        in: query
+        name: type
+        type: integer
+      - default: '""'
+        description: 名称搜索过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/image.Image'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有镜像信息
+      tags:
+      - 镜像管理
+  /store_pool/image/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定镜像，普通用户自能删除属于自身的镜像，管理员可删除自身及公有镜像，超级管理员可删除所有镜像。
+      parameters:
+      - description: 目标镜像ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除镜像
+      tags:
+      - 镜像管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定镜像信息，普通用户与系统管理员只能获取公共镜像或自身创建的镜像信息，超级管理员可以获取平台上所有的镜像信息。
+      parameters:
+      - description: 目标镜像ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/image.Image'
+              type: object
+      summary: 获取指定镜像
+      tags:
+      - 镜像管理
+  /store_pool/image/{id}/publish:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】发布指定镜像，只能发布属于用户自身的镜像。
+      parameters:
+      - description: 目标镜像ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/image.Image'
+              type: object
+      summary: 发布镜像
+      tags:
+      - 镜像管理
+  /store_pool/image/{id}/replica:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】通过指定镜像生成副本。
+      parameters:
+      - description: 目标镜像ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 副本名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 副本描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 生成副本
+      tags:
+      - 镜像管理
+  /store_pool/replica:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取所有副本信息，普通用户与系统管理员只能获取自身创建的副本信息，超级管理员可以获取平台上所有的副本信息。
+      parameters:
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: 0
+        description: 副本状态过滤参数[0.不过滤，1024.未挂载，2048.挂载中，4096.已挂载
+        in: query
+        name: status
+        type: integer
+      - default: 0
+        description: 镜像类型过滤参数[0.不过滤类型，1001.FILE，1002.ISO，1003.CUSTOME，1004.VMWAREVM，1005.CASVM，1006.HCSVM，1007.OPENSTACKVM]
+        in: query
+        name: dataType
+        type: integer
+      - default: '""'
+        description: 名称搜索过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/replica.Replica'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取所有副本信息
+      tags:
+      - 副本管理
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】创建一个新副本。
+      parameters:
+      - description: 副本名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 副本类型[1001.File, 1002.ISO, 1003.CUSTOME, 1004.VMware, 1005.Cas,
+          1006.HCS, 1007.OpenStack]
+        in: query
+        name: type
+        required: true
+        type: integer
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - description: 副本大小[单位：GB]
+        in: query
+        name: size
+        required: true
+        type: integer
+      - description: 所在存储池uuid
+        in: query
+        name: storePoolId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 创建副本
+      tags:
+      - 副本管理
+  /store_pool/replica/:id/mount/instance:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取副本执行记录。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/instance.Instance'
+              type: object
+      summary: 获取副本执行实例记录
+      tags:
+      - 副本管理
+  /store_pool/replica/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定副本，普通用户与系统管理员只能删除属于自身的副本，超级管理员可删除所有副本。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除指定副本
+      tags:
+      - 副本管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定副本信息，普通用户与系统管理员只能获取自身创建的副本信息，超级管理员可以获取平台上所有的副本信息。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 获取指定副本
+      tags:
+      - 镜像管理
+    put:
+      consumes:
+      - application/json
+      description: 【登录权限】编辑指定副本。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: '""'
+        description: 描述
+        in: query
+        name: desc
+        type: string
+      - default: 0
+        description: 副本大小[单位：GB]
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 编辑指定副本
+      tags:
+      - 副本管理
+  /store_pool/replica/{id}/image:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】根据所选副本生成一个新的镜像。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 镜像名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 镜像描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/image.Image'
+              type: object
+      summary: 生成镜像
+      tags:
+      - 副本管理
+  /store_pool/replica/{id}/snapshot:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定副本所有快照
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除指定副本所有快照
+      tags:
+      - 副本管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定副本所有快照信息
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: 0
+        description: 分页索引
+        in: query
+        name: index
+        type: integer
+      - default: 15
+        description: 分页数量
+        in: query
+        name: count
+        type: integer
+      - default: '""'
+        description: 名称过滤参数
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  allOf:
+                  - $ref: '#/definitions/api.Paging'
+                  - properties:
+                      data:
+                        items:
+                          $ref: '#/definitions/snapshot.Snapshot'
+                        type: array
+                    type: object
+              type: object
+      summary: 获取指定副本所有快照信息
+      tags:
+      - 副本管理
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】转换指定副本为镜像。
+      parameters:
+      - description: 目标副本ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 快照名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 快照描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/snapshot.Snapshot'
+              type: object
+      summary: 创建快照
+      tags:
+      - 副本管理
+  /store_pool/replica/batch/mount:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        【登录权限】批量挂载副本到目标平台。
+
+        【emphasis】 参数AppConfig需要根据应用区分，组织不同形式的[key:value]字符串。
+        ----Linux平台：
+        --------【可选参数:string】mountPoint：目标挂载位置
+        ----VMware平台：
+        --------【必填参数:string】locationPath：挂载清单位置
+        --------【必填参数:string】computeResource：挂载计算资源
+        --------【必填参数:bool】isRegisterVM：是否注册虚拟机
+        --------【选填参数:string】vmName：指定虚拟机注册名称
+        --------【选填参数:bool】powerOn：虚拟机注册后是否打开电源
+        --------【选填参数:string】hostName：指定虚拟机操作系统主机名
+        --------【选填参数:string】addr：指定虚拟机操作系统IP地址
+        --------【选填参数:string】netMask：指定虚拟机操作系统网关
+        --------【选填参数:string】gateWay：指定虚拟机操作系统掩码
+      parameters:
+      - description: 批量挂载参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/view.BatchMountParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  items:
+                    $ref: '#/definitions/replica.Replica'
+                  type: array
+              type: object
+      summary: 批量挂载副本
+      tags:
+      - 副本管理
+  /store_pool/replica/batch/unmount:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量挂载参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/view.BatchUnmountParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  items:
+                    $ref: '#/definitions/replica.Replica'
+                  type: array
+              type: object
+      tags:
+      - 副本管理
+  /store_pool/replica/mount:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        【登录权限】挂载副本到目标平台。
+
+        【emphasis】 参数AppConfig需要根据应用区分，组织不同形式的[key:value]字符串。
+        ----Linux平台：
+        --------【可选参数:string】mountPoint：目标挂载位置
+        ----VMware平台：
+        --------【必填参数:string】locationPath：挂载清单位置
+        --------【必填参数:string】computeResource：挂载计算资源
+        --------【必填参数:bool】isRegisterVM：是否注册虚拟机
+        --------【选填参数:string】vmName：指定虚拟机注册名称
+        --------【选填参数:bool】powerOn：虚拟机注册后是否打开电源
+        --------【选填参数:string】hostName：指定虚拟机操作系统主机名
+        --------【选填参数:string】addr：指定虚拟机操作系统IP地址
+        --------【选填参数:string】netMask：指定虚拟机操作系统网关
+        --------【选填参数:string】gateWay：指定虚拟机操作系统掩码
+        ----CAS平台：
+        --------【必填参数:string】name：虚拟机名称
+        --------【必填参数:int】hostId：主机id
+        --------【必填参数:int】system：操作系统编号（可以为1）
+        --------【选填参数:string】osVersion：操作系统名称，可以为空字符串
+        --------【选填参数:int】vsId：虚拟机交换机id，一般为1
+        --------【选填参数:bool】isRegisterVM：是否新建虚拟机
+      parameters:
+      - description: 挂载参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/view.MountParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 挂载副本
+      tags:
+      - 副本管理
+  /store_pool/replica/mount/instance/:id/logs:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取执行记录详情。
+      parameters:
+      - description: 目标实例ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/instance.InstanceLog'
+              type: object
+      summary: 获取指定副本执行实例详情
+      tags:
+      - 副本管理
+  /store_pool/replica/mount_type:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取已支持副本挂载类型[1.应用默认挂载， 2.仅导出共享路径]。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 获取已支持副本挂载类型
+      tags:
+      - 副本管理
+  /store_pool/replica/support:
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取已支持虚副本镜像类型[1001.File, 1002.ISO, 1003.CUSTOME, 1004.VMware,
+        1005.Cas, 1006.HCS, 1007.OpenStack]。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 获取已支持副本镜像类型
+      tags:
+      - 副本管理
+  /store_pool/snapshot/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 【登录权限】删除指定快照。
+      parameters:
+      - description: 目标快照ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 删除快照
+      tags:
+      - 快照管理
+    get:
+      consumes:
+      - application/json
+      description: 【登录权限】获取指定快照信息
+      parameters:
+      - description: 目标快照ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/snapshot.Snapshot'
+              type: object
+      summary: 获取指定快照信息
+      tags:
+      - 快照管理
+  /store_pool/snapshot/{id}/image:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】根据所选快照生成一个新的镜像。
+      parameters:
+      - description: 目标快照ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 镜像名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 镜像描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/image.Image'
+              type: object
+      summary: 生成镜像
+      tags:
+      - 快照管理
+  /store_pool/snapshot/{id}/replica:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】通过指定快照生成一个新的副本。
+      parameters:
+      - description: 目标快照ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 副本名称
+        in: query
+        name: name
+        required: true
+        type: string
+      - default: '""'
+        description: 副本描述
+        in: query
+        name: desc
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                response:
+                  $ref: '#/definitions/replica.Replica'
+              type: object
+      summary: 生成副本
+      tags:
+      - 快照管理
+  /store_pool/snapshot/{id}/rollback:
+    post:
+      consumes:
+      - application/json
+      description: 【登录权限】回滚快照副本到指定快照，非空闲状态【挂载中、卸载中、卸载失败、已挂载等】副本不允许回滚。
+      parameters:
+      - description: 目标快照ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Result'
+      summary: 回滚快照
+      tags:
+      - 快照管理
+swagger: "2.0"
